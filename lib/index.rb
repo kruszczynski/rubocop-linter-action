@@ -55,12 +55,17 @@ class RubocopLinterAction
       report: report,
       github_data: github_data,
       report_adapter: ReportAdapter,
-      check_name: check_name
+      check_name: check_name,
+      trigger_complete_run: trigger_complete_run
     ).run
   end
 
   def check_name
     config.fetch("check_name", "Rubocop Action")
+  end
+
+  def trigger_complete_run
+    config.fetch("trigger_complete_run", true)
   end
 end
 

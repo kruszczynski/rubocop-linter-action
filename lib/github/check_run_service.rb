@@ -5,18 +5,19 @@ module Github
     SLICE_COUNT = 48
     attr_reader :report, :github_data, :report_adapter, :check_name, :results
 
-    def initialize(report: nil, github_data: nil, report_adapter: nil, check_name: nil)
+    def initialize(report: nil, github_data: nil, report_adapter: nil, check_name: nil, trigger_complete_run: nil)
       @report = report
       @github_data = github_data
       @report_adapter = report_adapter
       @check_name = check_name
+      @trigger_complete_run = trigger_complete_run
     end
 
     def run
       @results = report.build
       id, started_at = create_check
       update_check(id, started_at)
-      complete_check(id, started_at)
+      complete_check(id, started_at) if @trigger_complete_run
     end
 
     private
